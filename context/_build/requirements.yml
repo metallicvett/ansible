@@ -2,4 +2,4 @@ collections:
   - community.general
   - community.windows
   - community.hashi_vault
-  # - microsoft.ad # as an append final step
+  - microsoft.ad # as an append final step

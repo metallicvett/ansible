@@ -1,0 +1,1 @@
+ansible-navigator run playbooks/playbook.yml --execution-environment-image windows_ee --mode stdout --pull-policy missing --container-options='--user=0'
