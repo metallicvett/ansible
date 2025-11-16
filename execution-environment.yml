@@ -18,9 +18,19 @@ dependencies:
   galaxy: files/requirements.yml
   python: files/requirements.txt
 
+additional_build_files:
+    - src: files/pip.conf
+      dest: configs
+    - src: files/ubi.repo
+      dest: configs
+
 additional_build_steps:
+  prepend_base:
+    - COPY _build/configs/ubi.repo /etc/yum.repos.d/ubi.repo
   append_base:
     - RUN $PYCMD -m pip install --upgrade pip
+  prepend_builder:
+    - COPY _build/configs/pip.conf /etc/pip.conf
   append_final:
     - RUN ansible-galaxy collection install microsoft.ad
     - RUN $PKGMGR -y remove krb5-devel python3.12-devel

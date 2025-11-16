@@ -22,6 +22,7 @@ ARG PKGMGR
 
 COPY _build/scripts/ /output/scripts/
 COPY _build/scripts/entrypoint /opt/builder/bin/entrypoint
+COPY _build/configs/ubi.repo /etc/yum.repos.d/ubi.repo
 RUN $PKGMGR install $PYPKG -y ; if [ -z $PKGMGR_PRESERVE_CACHE ]; then $PKGMGR clean all; fi
 RUN /output/scripts/pip_install $PYCMD
 RUN $PYCMD -m pip install --no-cache-dir $ANSIBLE_INSTALL_REFS
@@ -60,6 +61,7 @@ ARG ANSIBLE_INSTALL_REFS
 ARG PKGMGR
 
 RUN $PYCMD -m pip install --no-cache-dir bindep pyyaml packaging
+COPY _build/configs/pip.conf /etc/pip.conf
 
 COPY --from=galaxy /usr/share/ansible /usr/share/ansible
 
